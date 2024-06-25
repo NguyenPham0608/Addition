@@ -1,0 +1,115 @@
+
+
+#canvas1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1600px;
+    height: 900px;
+    transform: translate(-50%,-50%);
+    border: 3px solid black;
+}
+
+
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    position: relative; /* Ensures the slider is positioned relative to this container */
+    width: 90vw;
+    height: 90vh;
+}
+
+.slider.vertical {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 800px; /* Adjust this to change the height of the slider */
+    height: 8px;  /* Thickness of the vertical slider */
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%; /* Adjusts the pivot point for rotation */
+    position: absolute;
+    top: 50%; /* Adjust the top position */
+    left: 1%; /* Adjust the left position */
+    transform: translate(-50%, -50%)
+    rotate(-90deg); /* Centers the slider in the container */
+}
+
+.slider.vertical::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #ddd;
+    border-radius: 5px;
+    border: 1px solid #777;
+}
+
+.slider.vertical::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #025bff;
+    border: 1px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px; /* Adjust the thumb's position */
+}
+
+.slider.vertical:focus {
+    outline: none;
+}
+
+.slider.vertical:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+
+.slider.vertical2 {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 800px; /* Adjust this to change the height of the slider */
+    height: 8px;  /* Thickness of the vertical slider */
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%; /* Adjusts the pivot point for rotation */
+    position: absolute;
+    top: 50%; /* Adjust the top position */
+    left: 4%; /* Adjust the left position */
+    transform: translate(-50%, -50%)
+    rotate(-90deg); /* Centers the slider in the container */
+}
+
+.slider.vertical2::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    cursor: pointer;
+    background: #ddd;
+    border-radius: 5px;
+    border: 1px solid #777;
+}
+
+.slider.vertical2::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #025bff;
+    border: 1px solid #000;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -6px; /* Adjust the thumb's position */
+}
+
+.slider.vertical2:focus {
+    outline: none;
+}
+
+.slider.vertical2:focus::-webkit-slider-runnable-track {
+    background: #ccc;
+}
+
+
