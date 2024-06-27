@@ -111,7 +111,7 @@ function draw(){
 
         ctx.lineWidth=5
         ctx.beginPath()
-        ctx.strokeStyle='#FF0000'
+        ctx.strokeStyle='blue'
         ctx.moveTo((i-1)+canvas.width/2,f(i-1))
         ctx.lineTo(x,y)
         ctx.stroke()
@@ -129,9 +129,9 @@ function drawShadedArea(){
         ctx.beginPath()
         area=-base*f(x)
         if(((canvas.height/2)-height)*-base>0){
-            ctx.fillStyle='blue'
+            ctx.fillStyle='#00FF00'
         }else{
-            ctx.fillStyle='darkblue'
+            ctx.fillStyle='#FF0000'
         }
         ctx.fillRect(x+(canvas.width/2),height,base,(canvas.height/2)-height)
         ctx.fill()
