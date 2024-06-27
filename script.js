@@ -77,14 +77,15 @@ function loop(){
     ctx.strokeStyle='black'
     ctx.moveTo(0,canvas.height/2)
     ctx.lineTo(canvas.width,canvas.height/2)
-    ctx.fillText(areaX-20,areaX+(canvas.width/2)-20,canvas.height/2,999)
+    // ctx.fillText(areaX-20,areaX+(canvas.width/2)-20,canvas.height/2,999)
     // ctx.moveTo(canvas.width/2,0)
     // ctx.lineTo(canvas.width/2,canvas.height)
     
     ctx.stroke()
+    drawShadedArea()
+
     draw()
     drawDaNumbers()
-    drawShadedArea()
     findIntegral()
 
     requestAnimationFrame(loop)
@@ -111,7 +112,7 @@ function draw(){
 
         ctx.lineWidth=5
         ctx.beginPath()
-        ctx.strokeStyle='blue'
+        ctx.strokeStyle='#000866'
         ctx.moveTo((i-1)+canvas.width/2,f(i-1))
         ctx.lineTo(x,y)
         ctx.stroke()
@@ -129,10 +130,11 @@ function drawShadedArea(){
         ctx.beginPath()
         area=-base*f(x)
         if(((canvas.height/2)-height)*-base>0){
-            ctx.fillStyle='#00FF00'
+            ctx.fillStyle='#007B00'
         }else{
-            ctx.fillStyle='#FF0000'
+            ctx.fillStyle='#A50000'
         }
+        
         ctx.fillRect(x+(canvas.width/2),height,base,(canvas.height/2)-height)
         ctx.fill()
         area=-base*f(x)
