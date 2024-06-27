@@ -14,8 +14,6 @@ const slider = document.getElementById('mySlider');
 const output = document.getElementById('sliderValue');
 let sliderValue = slider.value;  // Initialize with the initial slider value
 
-const slider2 = document.getElementById('mySlider2');
-let widthSlider = slider2.value;  // Initialize with the initial slider value
 
 // Update the current slider value and the variable (each time you drag the slider handle)
 slider.oninput = function() {
@@ -23,9 +21,16 @@ slider.oninput = function() {
     output.textContent = sliderValue;  // Update the displayed value
 }
 
+const slider2 = document.getElementById('mySlider2');
+let widthValue = slider2.value;  // Initialize with the initial slider value
+
+
+// Update the current slider value and the variable (each time you drag the slider handle)
 slider2.oninput = function() {
-    widthSlider = this.value;  // Store the slider value in a JavaScript variable
+    widthValue = this.value;  // Store the slider value in a JavaScript variable
 }
+
+
 
 
 rectangles=sliderValue
@@ -53,7 +58,8 @@ let y=0
 
 function loop(){
 
-    width=widthSlider
+    width=widthValue
+    width=width/50
     rectangles=sliderValue
     base=(((areaX-20)-(areaX+20))/(rectangles/width))
 
@@ -71,6 +77,7 @@ function loop(){
     ctx.strokeStyle='black'
     ctx.moveTo(0,canvas.height/2)
     ctx.lineTo(canvas.width,canvas.height/2)
+    ctx.fillText(areaX-20,areaX+(canvas.width/2)-20,canvas.height/2,999)
     // ctx.moveTo(canvas.width/2,0)
     // ctx.lineTo(canvas.width/2,canvas.height)
     
@@ -85,7 +92,7 @@ function loop(){
 
 function f(a){
     // return(((1/90)*(a*a))+300)
-    return(((200)*(Math.sin(a/60)))+450)
+    return(((200)*(Math.sin(a/60)))+(canvas.height/2))
     // return(((1/3000)*(a-4)*(a-2)*(a+4))+450)
 }
 
@@ -120,8 +127,13 @@ function drawShadedArea(){
         console.log(x)
         height=f(x)
         ctx.beginPath()
-        ctx.fillStyle='blue'
-        ctx.fillRect(x+(canvas.width/2),height,base,450-height)
+        area=-base*f(x)
+        if(((canvas.height/2)-height)*-base>0){
+            ctx.fillStyle='blue'
+        }else{
+            ctx.fillStyle='darkblue'
+        }
+        ctx.fillRect(x+(canvas.width/2),height,base,(canvas.height/2)-height)
         ctx.fill()
         area=-base*f(x)
         totalArea+=area
@@ -142,7 +154,7 @@ function drawDaNumbers(){
     ctx.beginPath()
     ctx.lineWidth=2
     ctx.moveTo(areaX+(canvas.width/2),100)
-    ctx.lineTo(areaX+(canvas.width/2),450)
+    ctx.lineTo(areaX+(canvas.width/2),canvas.height/2)
     ctx.stroke()
     ctx.beginPath()
     ctx.lineWidth=5
