@@ -3,6 +3,9 @@
 const canvas=document.getElementById('canvas1')
 const ctx=canvas.getContext('2d')
 
+let backgroundAudio = new Audio()
+backgroundAudio.src='separation.mp3'
+
 // let rectangles=prompt('Enter number of rectangles', 50)
 // let rectangles=100
 let height=0
@@ -87,14 +90,15 @@ function loop(){
     draw()
     drawDaNumbers()
     findIntegral()
-
+    backgroundAudio.play()
     requestAnimationFrame(loop)
 }
 
 function f(a){
     // return(((1/90)*(a*a))+300)
-    return(((200)*(Math.sin(a/60)))+(canvas.height/2))
-    // return(((1/3000)*(a-4)*(a-2)*(a+4))+450)
+    // return(((190)*(Math.sin(a/60)+Math.cos(a/(35*Math.PI))))+(canvas.height/2))
+    return((200*((Math.cos(a/90))-(Math.sin(a/80)*Math.cos(a/100*Math.PI))))+(canvas.height/2))
+    // return(200*(Math.cosh(a)))
 }
 
 function findIntegral(){
@@ -125,7 +129,7 @@ function drawShadedArea(){
 
     for(let i = 0;i<rectangles;i++){
         x=areaX+(i*base)
-        console.log(x)
+        console.log(width)
         height=f(x)
         ctx.beginPath()
         area=-base*f(x)
