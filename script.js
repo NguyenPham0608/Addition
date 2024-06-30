@@ -4,7 +4,7 @@ const canvas=document.getElementById('canvas1')
 const ctx=canvas.getContext('2d')
 
 let backgroundAudio = new Audio()
-backgroundAudio.src='separation.mp3'
+backgroundAudio.src='happyDay.mp3'
 
 // let rectangles=prompt('Enter number of rectangles', 50)
 // let rectangles=100
@@ -85,12 +85,11 @@ function loop(){
     // ctx.lineTo(canvas.width/2,canvas.height)
     
     ctx.stroke()
+    drawDaNumbers()
     drawShadedArea()
 
     draw()
-    drawDaNumbers()
-    findIntegral()
-    backgroundAudio.play()
+    // backgroundAudio.play()
     requestAnimationFrame(loop)
 }
 
@@ -101,22 +100,16 @@ function f(a){
     // return(200*(Math.cosh(a)))
 }
 
-function findIntegral(){
-    for(let i = 1; i<rectangles; i++){
-        height=f(a+(i*base))
-        area=base*height
-        totalArea+=area
-    }
-}
+
 
 function draw(){
     for(let i = -canvas.width;i<canvas.width;i++){
         x=i+canvas.width/2
         y=f(i)
-
         ctx.lineWidth=5
         ctx.beginPath()
-        ctx.strokeStyle='#000866'
+        // ctx.strokeStyle='#000866'
+        ctx.strokeStyle='darkblue'
         ctx.moveTo((i-1)+canvas.width/2,f(i-1))
         ctx.lineTo(x,y)
         ctx.stroke()
@@ -129,7 +122,6 @@ function drawShadedArea(){
 
     for(let i = 0;i<rectangles;i++){
         x=areaX+(i*base)
-        console.log(width)
         height=f(x)
         ctx.beginPath()
         area=-base*f(x)
@@ -141,14 +133,17 @@ function drawShadedArea(){
         
         ctx.fillRect(x+(canvas.width/2),height,base,(canvas.height/2)-height)
         ctx.fill()
-        area=-base*f(x)
+
+        x=(areaX)+(-i*(base))
+        console.log((canvas.height/2)-f(x))
+        area=(width/rectangles)*Math.abs((canvas.height/2)-f((x)))
         totalArea+=area
     }
 
-    ctx.font='20px Verdana'
-    ctx.beginPath()
-    ctx.fillText((Math.round(totalArea*100000)/100000),areaX-45+canvas.width/2,90,1100)
-    ctx.fill()
+    // ctx.font='20px Verdana'
+    // ctx.beginPath()
+    // ctx.fillText((Math.round(totalArea*1000)/1000),areaX-45+canvas.width/2,90,1100)
+    // ctx.fill()
 
     
 }
@@ -156,17 +151,17 @@ function drawShadedArea(){
 function drawDaNumbers(){
 
 
-    ctx.strokeStyle='black'
-    ctx.beginPath()
-    ctx.lineWidth=2
-    ctx.moveTo(areaX+(canvas.width/2),100)
-    ctx.lineTo(areaX+(canvas.width/2),canvas.height/2)
-    ctx.stroke()
-    ctx.beginPath()
-    ctx.lineWidth=5
-    ctx.moveTo(areaX+(canvas.width/2)-45,100)
-    ctx.lineTo(areaX+(canvas.width/2)+45,100)
-    ctx.stroke()
+    // ctx.strokeStyle='black'
+    // ctx.beginPath()
+    // ctx.lineWidth=2
+    // ctx.moveTo(areaX+(canvas.width/2)-(20*width),100)
+    // ctx.lineTo(areaX+(canvas.width/2)-(20*width),canvas.height/2)
+    // ctx.stroke()
+    // ctx.beginPath()
+    // ctx.lineWidth=5
+    // ctx.moveTo(areaX+(canvas.width/2)-45,100)
+    // ctx.lineTo(areaX+(canvas.width/2)+45,100)
+    // ctx.stroke()
 }
 
 window.addEventListener('mousemove',function(e){
