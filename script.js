@@ -156,6 +156,9 @@ function f(a){
         case 'e':
             return(((200*zoom)*((Math.cos(((a/zoom)+offset)/90))-(Math.sin(((a/zoom)+offset)/80)*Math.cos(((a/zoom)+offset)/100*Math.PI))))+(canvas.height/2))
             break;
+        case 'f':
+            return((zoom)*(((a+offset)/zoom)+(50*Math.sin((((((a+offset)/20)/zoom))))))+canvas.height/2)
+            break;
         
 
         
