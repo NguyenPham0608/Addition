@@ -3,6 +3,13 @@
 const canvas=document.getElementById('canvas1')
 const ctx=canvas.getContext('2d')
 
+let equation='a'
+
+const dropdown=document.getElementById('functions')
+dropdown.addEventListener('change',function(e){
+    equation=e.target.value
+})
+
 let backgroundAudio = new Audio()
 backgroundAudio.src='happyDay.mp3'
 
@@ -17,6 +24,8 @@ let aRange=(-canvas.width/2)
 let bRange=(canvas.width/2)
 
 let offset=0
+let zoom=2
+let zoomSpeed=0
 
 const slider = document.getElementById('mySlider');
 const output = document.getElementById('sliderValue');
@@ -68,8 +77,15 @@ let y=0
 
 let rightPressed=false
 let leftPressed=false
+let upPressed=false
+let downPressed=false
 
 function loop(){
+    ctx.beginPath()
+    ctx.fillText((-canvas.width/2)-offset,-canvas.width,canvas.height/2,999)
+    ctx.fillText((canvas.width/2)-offset,canvas.width,canvas.height/2,999)
+    ctx.fillText((canvas.width/2)-(offset/2),canvas.width/2,canvas.height/2.999)
+    ctx.fill()
 
     if(leftPressed){
         offsetSpeed--
@@ -77,11 +93,21 @@ function loop(){
     if(rightPressed){
         offsetSpeed++
     }
+    if(upPressed){
+        zoomSpeed+=0.001
+    }
+    if(downPressed){
+        zoomSpeed-=0.001
+    }
     offsetSpeed=0.93*offsetSpeed
+    zoomSpeed=0.9*zoomSpeed
+
     offset+=offsetSpeed
+    zoom+=zoomSpeed
 
     width=widthValue
     width=width/50
+    width=width*zoom
     rectangles=sliderValue
     base=(((areaX-20)-(areaX+20))/(rectangles/width))
 
@@ -113,10 +139,27 @@ function loop(){
 }
 
 function f(a){
-    // return(((1/90)*((a+offset)*(a+offset)))+300)
-    // return(((190)*(Math.sin(a/60)+Math.cos(a/(35*Math.PI))))+(canvas.height/2))
-    return((200*((Math.cos((a+offset)/90))-(Math.sin((a+offset)/80)*Math.cos((a+offset)/100*Math.PI))))+(canvas.height/2))
-    // return(200*(Math.cosh(a)))
+    switch(equation){
+
+        case 'a':
+            return((100*zoom)*(Math.sin(((a/zoom)+offset)/20))+(canvas.height/2))
+            break;
+        case 'b':
+            return((100*zoom)*(Math.cos(((a/zoom)+offset)/20))+(canvas.height/2))
+            break;
+        case 'c':
+            return(((zoom/100)*((((a/zoom)+offset))**2))+(canvas.height/3))
+            break;
+        case 'd':
+            return(((zoom/1000)*((((-a/zoom)+offset))**3))+(canvas.height/2))
+            break;
+        case 'e':
+            return(((200*zoom)*((Math.cos(((a/zoom)+offset)/90))-(Math.sin(((a/zoom)+offset)/80)*Math.cos(((a/zoom)+offset)/100*Math.PI))))+(canvas.height/2))
+            break;
+        
+
+        
+    }
 }
 
 
@@ -184,7 +227,7 @@ function drawDaNumbers(){
 
 window.addEventListener('mousemove',function(e){
     if(pause==false){
-        areaX=e.clientX+(20*width)-(canvas.width/2)-canvasPosition.left
+        areaX=e.clientX+(20*width)-(canvas.width/2)-canvasPosition.left-10
     }
     
 })
@@ -204,6 +247,12 @@ window.addEventListener('keyup',function(e){
     if(e.key=='ArrowRight'){
         rightPressed=false
     }
+    if(e.key=='ArrowUp'){
+        upPressed=false
+    }
+    if(e.key=='ArrowDown'){
+        downPressed=false
+    }
 })
 
 window.addEventListener('keydown', function(e){
@@ -212,6 +261,12 @@ window.addEventListener('keydown', function(e){
     }
     if(e.key=='ArrowRight'){
         rightPressed=true
+    }
+    if(e.key=='ArrowUp'){
+        upPressed=true
+    }
+    if(e.key=='ArrowDown'){
+        downPressed=true
     }
 })
 

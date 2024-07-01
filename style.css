@@ -110,3 +110,12 @@
 .slider.horizontal:focus::-webkit-slider-runnable-track {
     background: #ccc;
 }
+
+.controls{
+    font-family: sans-serif;
+    position: absolute;
+    z-index: 10;
+    top: 2.3%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
