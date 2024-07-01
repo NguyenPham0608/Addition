@@ -10,8 +10,13 @@ backgroundAudio.src='happyDay.mp3'
 // let rectangles=100
 let height=0
 
-let a=0
-let b=4
+let a
+let b
+
+let aRange=(-canvas.width/2)
+let bRange=(canvas.width/2)
+
+let offset=0
 
 const slider = document.getElementById('mySlider');
 const output = document.getElementById('sliderValue');
@@ -56,10 +61,24 @@ let lastY=0
 
 let width=2
 
+let offsetSpeed=0
+
 let x=0
 let y=0
 
+let rightPressed=false
+let leftPressed=false
+
 function loop(){
+
+    if(leftPressed){
+        offsetSpeed--
+    }
+    if(rightPressed){
+        offsetSpeed++
+    }
+    offsetSpeed=0.93*offsetSpeed
+    offset+=offsetSpeed
 
     width=widthValue
     width=width/50
@@ -94,26 +113,25 @@ function loop(){
 }
 
 function f(a){
-    // return(((1/90)*(a*a))+300)
+    // return(((1/90)*((a+offset)*(a+offset)))+300)
     // return(((190)*(Math.sin(a/60)+Math.cos(a/(35*Math.PI))))+(canvas.height/2))
-    return((200*((Math.cos(a/90))-(Math.sin(a/80)*Math.cos(a/100*Math.PI))))+(canvas.height/2))
+    return((200*((Math.cos((a+offset)/90))-(Math.sin((a+offset)/80)*Math.cos((a+offset)/100*Math.PI))))+(canvas.height/2))
     // return(200*(Math.cosh(a)))
 }
 
 
 
 function draw(){
-    for(let i = -canvas.width;i<canvas.width;i++){
-        x=i+canvas.width/2
+    for(let i = -canvas.width/1.8;i<canvas.width/1.8;i++){
+        x=i+(canvas.width/2)
         y=f(i)
         ctx.lineWidth=5
         ctx.beginPath()
         // ctx.strokeStyle='#000866'
         ctx.strokeStyle='darkblue'
-        ctx.moveTo((i-1)+canvas.width/2,f(i-1))
+        ctx.moveTo((i-1)+(canvas.width/2),f(i-1))
         ctx.lineTo(x,y)
         ctx.stroke()
-        
         
     }
 }
@@ -168,6 +186,7 @@ window.addEventListener('mousemove',function(e){
     if(pause==false){
         areaX=e.clientX+(20*width)-(canvas.width/2)-canvasPosition.left
     }
+    
 })
 
 window.addEventListener('keyup',function(e){
@@ -178,8 +197,23 @@ window.addEventListener('keyup',function(e){
             pause=true
         }
     }
+
+    if(e.key=='ArrowLeft'){
+        leftPressed=false
+    }
+    if(e.key=='ArrowRight'){
+        rightPressed=false
+    }
 })
 
+window.addEventListener('keydown', function(e){
+    if(e.key=='ArrowLeft'){
+        leftPressed=true
+    }
+    if(e.key=='ArrowRight'){
+        rightPressed=true
+    }
+})
 
 
 loop()
